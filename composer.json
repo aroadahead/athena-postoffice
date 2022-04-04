@@ -16,7 +16,7 @@
   },
   "extra": {
     "laminas": {
-      "module": "Postoffice"
+      "module": "AthenaPostoffice"
     }
   },
   "require": {
