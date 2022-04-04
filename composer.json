@@ -33,12 +33,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Postoffice\\": "src/"
+      "AthenaPostoffice\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "PostofficeTest\\": "tests/"
+      "AthenaPostofficeTest\\": "tests/"
     }
   },
   "scripts": {
