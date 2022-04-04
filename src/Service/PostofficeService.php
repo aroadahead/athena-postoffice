@@ -7,6 +7,7 @@ use AthenaBridge\Aws\Ses\SesClient;
 use AthenaBridge\Laminas\View\Model\ViewModel;
 use Poseidon\Poseidon;
 use Psr\Container\ContainerInterface;
+use function array_merge;
 use function array_walk;
 
 class PostofficeService extends ApplicationService
@@ -18,10 +19,16 @@ class PostofficeService extends ApplicationService
 
     public function send(array $args): array
     {
-        $client = new SesClient($this -> container -> get('conf')
+        $config = $this -> container -> get('conf')
             -> facade()
-            -> getApisConfig('aws.ses')
-            -> toArray());
+            -> getApisConfig('aws')
+            -> toArray();
+        $fConfig = [
+            'region' => $config['region'],
+            'version' => $config['version']
+        ];
+        $fConfig = array_merge($fConfig, $config['ses']);
+        $client = new SesClient($fConfig);
         $client -> setHtmlBody($this -> renderTemplate($args));
         $client -> setSubject($args['subject']);
         $client -> setSource($args['from']);
